@@ -1,0 +1,36 @@
+The best solution is to avoid relying on `!important` whenever possible as it makes CSS harder to maintain and debug. In this case, we have two options:
+
+1. Use a more specific selector for the style to be overridden:
+
+```css
+.container {
+  color: blue;
+}
+
+.container p {
+  color: red;
+}
+
+.container p.override {
+  color: green;
+}
+```
+
+Then modify the HTML accordingly by adding the 'override' class to the `<p>` tag.  This way, we are not reliant on `!important`, instead leveraging the specificity of the CSS selector.
+
+2. Re-arrange the CSS order to ensure that the more important styles are declared later in the file. This is a more straightforward approach but depends on which rule you want to prioritize. While simpler it's less readable and maintainable than the previous solution. 
+
+```css
+.container {
+  color: blue;
+}
+
+.container p {
+  color: green;
+}
+
+.container p {
+  color: red;
+}
+```
+In this order, the green color will be applied since it's declared later than the red color. However, if the goal is to use red instead, simply switch the declaration order.
