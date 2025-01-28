@@ -1,0 +1,21 @@
+The following CSS code snippet demonstrates an uncommon error related to the specificity of CSS selectors and how they interact with the `!important` declaration.  The unexpected behavior arises when trying to override a style applied with a more specific selector using `!important` on a less specific selector.
+
+```css
+.container {
+  color: blue;
+}
+
+.container p {
+  color: red;
+}
+
+.container p {
+  color: green !important;
+}
+```
+
+Expected: The paragraph (`<p>`) inside the `container` div should be green because the `!important` declaration should override the previous `color: red` declaration.
+
+Actual: The paragraph is red. The `!important` declaration does not override the `color: red` declaration.
+
+The reason is that even though `!important` has high priority,  the selector `.container p` is still more specific than the selector `.container`.  Specificity in CSS is determined by the complexity and type of selectors used. The `!important` declaration only overrides the priority based on the order of appearance in the CSS file, if it has the same specificity.
